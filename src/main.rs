@@ -9,8 +9,7 @@ use dotenv::dotenv;
 use poise::serenity_prelude as serenity;
 use poise::serenity_prelude::GatewayIntents;
 use tracing::{event, Level};
-use crate::commands::{deployments, help};
-use crate::commands::deployments::deployment;
+use crate::commands::{deployment, deployments, help};
 use crate::commands::users;
 
 // Types used by all command functions
@@ -32,13 +31,10 @@ async fn main() {
     // Every option can be omitted to use its default value
     let options = poise::FrameworkOptions {
       commands: vec![
+        deployment::deployment(),
+        deployments::deployments(),
         help::help(),
-        users::invite::invite(),
-        deployments::new::new(),
-        deployments::list::list(),
-        deployment::get::get(),
-        deployment::logs::logs(),
-        deployment::delete::delete()
+        users::users(),
       ],
 
       prefix_options: poise::PrefixFrameworkOptions {

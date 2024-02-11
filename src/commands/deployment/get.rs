@@ -4,7 +4,7 @@ use crate::services::voyager_api;
 use crate::types::voyager_api::deployment::Deployment;
 use crate::utils::handle_reply::HandleReply;
 
-/// Get deployment for a deployment id
+/// Gets the deployment for this deployment id
 #[poise::command(prefix_command, track_edits, slash_command)]
 pub async fn get(
   ctx: Context<'_>,

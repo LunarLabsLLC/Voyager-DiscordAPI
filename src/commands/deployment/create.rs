@@ -5,7 +5,7 @@ use crate::utils::handle_reply::HandleReply;
 
 /// Deploys the given repo & branch to the given subdomain
 #[poise::command(prefix_command, slash_command)]
-pub async fn new(
+pub async fn create(
   ctx: Context<'_>,
   #[description = "The repo url to deploy, including the branch"]
   repo_url: String,
