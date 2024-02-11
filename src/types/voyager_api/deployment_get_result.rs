@@ -9,10 +9,6 @@ pub struct DeploymentGetResult {
 }
 
 impl DeploymentGetResult {
-  pub fn new(logs: Logs, deployment: Option<Deployment>) -> Self {
-    DeploymentGetResult { logs, deployment }
-  }
-
   pub fn deployment(&self) -> Option<&Deployment> {
     self.deployment.as_ref()
   }

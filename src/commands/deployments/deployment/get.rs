@@ -15,8 +15,8 @@ pub async fn get(
 
   match is_success {
     true => {
-      let deployment = result.unwrap().data().unwrap();
-      let deployment = deployment.deployment().unwrap();
+      let deployment = result.unwrap();
+      let deployment = deployment.data().unwrap().deployment().unwrap();
       let Deployment {
         container_id,
         repo_url,

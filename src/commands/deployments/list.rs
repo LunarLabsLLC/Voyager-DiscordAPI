@@ -1,4 +1,4 @@
-use poise::futures_util::{future, StreamExt};
+use poise::futures_util::{future};
 use crate::{Context, Error};
 use crate::commands::utils::GetErrsStr;
 use crate::services::voyager_api;
@@ -16,8 +16,8 @@ pub async fn list(
 
   match is_success {
     true => {
-      let deployments = result.unwrap().data().unwrap();
-      let deployments = deployments.deployments();
+      let deployments = result.unwrap();
+      let deployments = deployments.data().unwrap().deployments();
       let deployment_vec = deployments.iter()
         .map(|d| {
         let Deployment {

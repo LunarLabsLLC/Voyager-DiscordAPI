@@ -15,8 +15,8 @@ pub async fn logs(
 
   match is_success {
     true => {
-      let logs = result.unwrap().data().unwrap();
-      let logs = logs.deployment_logs().unwrap();
+      let logs = result.unwrap();
+      let logs = logs.data().unwrap().deployment_logs().unwrap();
       let logs = logs.iter()
         .map(|l| format!("- {l}"))
         .collect::<Vec<String>>()

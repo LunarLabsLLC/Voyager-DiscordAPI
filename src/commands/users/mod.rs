@@ -1,4 +1,4 @@
-mod invite;
+pub(crate) mod invite;
 
 use crate::{Context, Error};
 use crate::utils::handle_reply::HandleReply;

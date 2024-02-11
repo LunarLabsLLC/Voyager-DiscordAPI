@@ -9,6 +9,9 @@ use dotenv::dotenv;
 use poise::serenity_prelude as serenity;
 use poise::serenity_prelude::GatewayIntents;
 use tracing::{event, Level};
+use crate::commands::{deployments, help};
+use crate::commands::deployments::deployment;
+use crate::commands::users;
 
 // Types used by all command functions
 type Error = Box<dyn std::error::Error + Send + Sync>;
@@ -28,7 +31,15 @@ async fn main() {
 
     // Every option can be omitted to use its default value
     let options = poise::FrameworkOptions {
-      commands: vec![help::help(), r#mod::invite(), deployments::deploy::deploy()],
+      commands: vec![
+        help::help(),
+        users::invite::invite(),
+        deployments::new::new(),
+        deployments::list::list(),
+        deployment::get::get(),
+        deployment::logs::logs(),
+        deployment::delete::delete()
+      ],
 
       prefix_options: poise::PrefixFrameworkOptions {
           prefix: Some("~".into()),

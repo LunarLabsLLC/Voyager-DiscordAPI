@@ -8,10 +8,6 @@ pub struct DeploymentResult {
 }
 
 impl DeploymentResult {
-  pub fn new(message: String, errors: Vec<String>, id: Option<String>) -> Self {
-    DeploymentResult { logs: Logs { message, errors }, id }
-  }
-
   pub fn id(&self) -> Option<&String> {
     self.id.as_ref()
   }

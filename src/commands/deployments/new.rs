@@ -18,8 +18,8 @@ pub async fn new(
 
   match is_success {
     true => {
-      let id = result.unwrap().data().unwrap();
-      let id = id.id().unwrap();
+      let id = result.unwrap();
+      let id = id.data().unwrap().id().unwrap();
       ctx.reply(format!("Deployed successfully! Id: {id}")).await.handle()
     },
     _ => {

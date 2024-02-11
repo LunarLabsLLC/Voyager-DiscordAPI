@@ -9,10 +9,6 @@ pub struct DeploymentsGetResult {
 }
 
 impl DeploymentsGetResult {
-  pub fn new(message: String, errors: Vec<String>, deployments: Vec<Deployment>) -> Self {
-    DeploymentsGetResult { logs: Logs { message, errors }, deployments }
-  }
-
   pub fn deployments(&self) -> &Vec<Deployment> {
     self.deployments.as_ref()
   }

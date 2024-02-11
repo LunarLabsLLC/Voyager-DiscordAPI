@@ -4,7 +4,7 @@ use crate::commands::deployments::{new::new, list::list};
 
 pub mod new;
 pub mod list;
-mod deployment;
+pub(crate) mod deployment;
 
 #[poise::command(prefix_command, slash_command, subcommands("new", "list"))]
 pub async fn deployments(ctx: Context<'_>) -> Result<(), Error> {

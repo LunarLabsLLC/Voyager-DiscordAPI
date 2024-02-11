@@ -6,6 +6,8 @@ pub trait HandleReply {
 }
 impl<'a> HandleReply for Result<ReplyHandle<'a>, serenity_prelude::Error> {
   fn handle(&self) {
-    self.err().map(|e| event!(Level::WARN, "Warning: Failed to send reply. Error: {:?}", e));
+    if let Some(e) = self.as_ref().err() {
+      event!(Level::ERROR, "Error sending reply: {:?}", e);
+    }
   }
 }

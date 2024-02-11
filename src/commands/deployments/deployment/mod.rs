@@ -2,9 +2,9 @@ use crate::{Context, Error};
 use crate::utils::handle_reply::HandleReply;
 use crate::commands::deployments::deployment::{logs::logs};
 
-mod get;
-mod logs;
-mod delete;
+pub(crate) mod get;
+pub(crate) mod logs;
+pub(crate) mod delete;
 
 #[poise::command(prefix_command, slash_command, subcommands("logs"))]
 pub async fn deployment(ctx: Context<'_>) -> Result<(), Error> {
