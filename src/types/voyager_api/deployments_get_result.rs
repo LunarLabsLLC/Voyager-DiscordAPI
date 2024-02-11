@@ -1,10 +1,10 @@
 use serde::Deserialize;
-use crate::types::voyager_api::{Logs, GetErrors};
+use crate::types::voyager_api::{GetErrors};
 use crate::types::voyager_api::deployment::Deployment;
 
 #[derive(Debug, Deserialize)]
 pub struct DeploymentsGetResult {
-  pub logs: Logs,
+  errors: Vec<String>,
   deployments: Vec<Deployment>
 }
 
@@ -16,6 +16,6 @@ impl DeploymentsGetResult {
 
 impl GetErrors for DeploymentsGetResult {
   fn get_errors(&self) -> &Vec<String> {
-    self.logs.errors()
+    self.errors.as_ref()
   }
 }
