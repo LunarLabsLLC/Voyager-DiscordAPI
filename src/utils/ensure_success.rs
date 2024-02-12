@@ -8,19 +8,25 @@ pub trait EnsureSuccess<T: for<'de> serde::Deserialize<'de>> {
 }
 impl<T: for<'de> serde::Deserialize<'de>> EnsureSuccess<T> for Result<Response<T>, Error> {
   fn ensure_success(self, is_nullable: bool) -> (bool, Option<Deserializable<T>>) {
-    let Some((res, status_code)) = self.ok() else {
-      event!(Level::ERROR, "HTTP Client failed to contact the API.");
-      return (false, None)
-    };
+    match self {
+      Ok(response) => {
+        let (res, status_code) = response;
 
-    if !status_code.is_success() {
-      event!(Level::ERROR, "Status Code: HTTP {status_code}. Response returned error");
-      (false, res)
-    } else if !is_nullable && res.is_none() {
-      event!(Level::ERROR, "Status Code: HTTP {status_code}. Response body was empty on non-nullable entity");
-      (false, res)
-    } else {
-      (true, res)
+        if !status_code.is_success() {
+          event!(Level::ERROR, "Status Code: HTTP {status_code}. Response returned error");
+          (false, res)
+        } else if !is_nullable && res.is_none() {
+          event!(Level::ERROR, "Status Code: HTTP {status_code}. Response body was empty on non-nullable entity");
+          (false, res)
+        } else {
+          (true, res)
+        }
+      },
+
+      Err(e) => {
+        event!(Level::ERROR, "HTTP Client failed to contact the API. Error: {e}");
+        (false, None)
+      }
     }
   }
 }

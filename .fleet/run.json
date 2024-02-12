@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "type": "cargo",
+      "name": "Debug",
+      "cargoArgs": ["run"],
+      "executableArgs": ["1","2","3"],
+    },
+  ]
+}

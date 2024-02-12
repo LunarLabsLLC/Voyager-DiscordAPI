@@ -5,6 +5,7 @@ use reqwest::{Client, Method};
 use reqwest::header::{ACCEPT, CONTENT_TYPE, USER_AGENT, HeaderMap};
 use serde::Serialize;
 use tokio::sync::{RwLock};
+use tracing::{event, Level};
 use url::Url;
 use crate::{Error, generate_methods};
 use crate::utils::http_client::client_wrapper::ClientWrapper;
@@ -98,7 +99,10 @@ impl HTTPClient {
         // Attempt to deserialize dynamic value into the specified type `T`
         let result = match serde_json::from_value(json.clone()) {
           Ok(deserialized) => (Some(Deserializable::Data(deserialized)), status),
-          Err(_) => (Some(Deserializable::Value(json)), status),
+          Err(e) => {
+            event!(Level::ERROR, "Failed to deserialize response into specified type: {:?}", e);
+            (Some(Deserializable::Value(json)), status)
+          },
         };
         Ok(result)
       }
