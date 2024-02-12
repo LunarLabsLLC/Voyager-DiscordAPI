@@ -9,9 +9,9 @@ use crate::utils::handle_reply::HandleReply;
 pub async fn logs(
   ctx: Context<'_>,
   #[description = "The repo url to get deployments for"]
-  deployment_id: String,
+  id: String,
 ) -> Result<(), Error> {
-  let (is_success, result) = voyager_api::get::deployment_logs(deployment_id).await;
+  let (is_success, result) = voyager_api::get::deployment_logs(id).await;
 
   match is_success {
     true => {
